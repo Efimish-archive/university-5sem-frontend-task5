@@ -1,18 +1,18 @@
 <script setup>
+import { useProductStore } from '@/stores/products'
 import FeedType from './FeedType.vue'
+import { provide } from 'vue';
 
-defineProps({
+const { product } = defineProps({
   product: Object,
 })
 
-const emit = defineEmits({
-  kupit: null,
-})
+const { buy } = useProductStore();
 
-const onKupit = (id) => {
-  emit('kupit', id)
-}
+provide('product', product);
+provide('buy', () => buy(product.id))
 </script>
+
 <template>
   <div class="border p-3">
     <div class="border p-5 mb-2">
@@ -22,11 +22,6 @@ const onKupit = (id) => {
       </p>
     </div>
 
-    <FeedType
-      :product="product"
-      :user="product.user"
-      :meta="product.meta"
-      @kupit="onKupit"
-    ></FeedType>
+    <FeedType :product="product" :user="product.user" :meta="product.meta" @kupit="buy"></FeedType>
   </div>
 </template>

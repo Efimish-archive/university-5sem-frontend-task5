@@ -1,16 +1,9 @@
 <script setup>
-import { computed } from 'vue'
+import { useProductStore } from './stores/products'
 
-const props = defineProps({
-  purchased: Array,
-})
-
-const sum = computed(() =>
-  props.purchased.reduce((total, product) => {
-    return total + product.price
-  }, 0),
-)
+const productStore = useProductStore()
 </script>
+
 <template>
-  <div class="p-3 text-2xl mb-10">Общая сумма покупок: {{ sum }}</div>
+  <div class="p-3 text-2xl mb-10">Общая сумма покупок: {{ productStore.sum }}</div>
 </template>
