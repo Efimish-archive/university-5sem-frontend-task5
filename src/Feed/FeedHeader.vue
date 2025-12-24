@@ -1,15 +1,13 @@
 <script setup>
-defineProps({
-  count: Number,
-  user: Object,
-  name: String,
-})
+import { inject } from 'vue';
+
+const product = inject('product');
 </script>
 
 <template>
   <div class="text-sm">
-    <div>Creator - {{ user.full_name }}</div>
-    <div>Media count: {{ count }}</div>
+    <div>Creator - {{ product.user.full_name }}</div>
+    <div>Media count: {{ product.collection_medias.length }}</div>
   </div>
-  <h2 class="text-lg font-extrabold">{{ name }}</h2>
+  <h2 class="text-lg font-extrabold">{{ product.name }}</h2>
 </template>

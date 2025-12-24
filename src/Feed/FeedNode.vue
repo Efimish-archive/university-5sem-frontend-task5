@@ -1,16 +1,12 @@
 <script setup>
-import { useProductStore } from '@/stores/products'
-import FeedType from './FeedType.vue'
 import { provide } from 'vue';
+import FeedType from './FeedType.vue';
 
 const { product } = defineProps({
   product: Object,
-})
-
-const { buy } = useProductStore();
+});
 
 provide('product', product);
-provide('buy', () => buy(product.id))
 </script>
 
 <template>
@@ -22,6 +18,6 @@ provide('buy', () => buy(product.id))
       </p>
     </div>
 
-    <FeedType :product="product" :user="product.user" :meta="product.meta" @kupit="buy"></FeedType>
+    <FeedType />
   </div>
 </template>

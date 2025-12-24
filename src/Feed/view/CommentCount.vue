@@ -1,41 +1,18 @@
 <script setup>
-import { ref } from 'vue'
+import { inject } from 'vue';
+import { useMedia } from '@/composables/useMedia';
 
-const props = defineProps({
-  comment: Number,
-})
-
-const count = ref(props.comment)
-const isActive = ref(false)
-
-const handleClick = () => {
-  if (isActive.value) {
-    count.value--
-    isActive.value = false
-  } else {
-    count.value++
-    isActive.value = true
-  }
-}
+const product = inject('product');
+const media = useMedia(product.meta.comment ?? 0);
+const { count, isActive, handleClick } = media;
 </script>
+
 <template>
-  <div
-    class="flex gap-3 cursor-pointer select-none transition-all hover:scale-110"
-    :class="{ 'text-blue-500': isActive }"
-    @click="handleClick"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      :fill="isActive ? 'currentColor' : 'none'"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="feather feather-message-square transition-all"
-    >
+  <div class="flex gap-3 cursor-pointer select-none transition-all hover:scale-110"
+    :class="{ 'text-blue-500': isActive }" @click="handleClick">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+      :fill="isActive ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round" class="feather feather-message-square transition-all">
       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
     </svg>
 
